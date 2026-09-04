@@ -55,6 +55,8 @@
       background-size: 150px 150px, 190px 190px, 170px 170px, auto;
       font-family: ui-rounded, "SF Pro Rounded", "Segoe UI", system-ui, -apple-system, sans-serif;
       -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      isolation: isolate;
     }
 
     body::before,
@@ -69,7 +71,7 @@
       opacity: 0.28;
       pointer-events: none;
       z-index: -1;
-      animation: floatGlow 9s ease-in-out infinite alternate;
+      transform: translateZ(0);
     }
 
     body::before {
@@ -89,6 +91,7 @@
       width: min(1180px, 100%);
       margin: 0 auto;
       position: relative;
+      z-index: 2;
     }
 
     .magic-layer {
@@ -96,7 +99,8 @@
       inset: 0;
       overflow: hidden;
       pointer-events: none;
-      z-index: 20;
+      z-index: 0;
+      opacity: 0.72;
     }
 
     .magic-star {
@@ -106,8 +110,7 @@
       color: var(--color);
       font-size: var(--size);
       line-height: 1;
-      text-shadow: 0 0 7px #fff, 0 0 16px currentColor, 0 0 28px currentColor;
-      filter: drop-shadow(0 4px 5px rgba(122, 57, 121, 0.18));
+      text-shadow: 0 0 5px #fff, 0 0 10px currentColor;
       opacity: 0;
       will-change: transform, opacity;
       animation: drift var(--duration) linear infinite;
@@ -115,8 +118,7 @@
     }
 
     .magic-star.flower {
-      text-shadow: 0 0 8px #fff;
-      filter: drop-shadow(0 5px 5px rgba(176, 62, 123, 0.2));
+      text-shadow: 0 0 5px #fff;
       animation-name: flowerRise;
     }
 
@@ -147,20 +149,6 @@
       100% { opacity: 0; transform: translate3d(var(--drift), -120vh, 0) rotate(-8deg) scale(0.8); }
     }
 
-    @keyframes floatGlow {
-      to { transform: translate3d(7vw, 5vh, 0) scale(1.15); }
-    }
-
-    @keyframes candySky {
-      0%, 100% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-    }
-
-    @keyframes heroFloat {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-5px); }
-    }
-
     @keyframes flowerDance {
       0%, 100% { transform: translateY(0) rotate(-6deg) scale(1); }
       50% { transform: translateY(-10px) rotate(8deg) scale(1.08); }
@@ -172,23 +160,19 @@
       70% { transform: translate3d(-12px, -8px, 0) rotate(-3deg); }
     }
 
-    @keyframes rainbowBorder {
-      to { filter: hue-rotate(360deg); }
-    }
-
     .garden {
       position: fixed;
       inset: 0;
       overflow: hidden;
       pointer-events: none;
-      z-index: 19;
+      z-index: 1;
+      opacity: 0.55;
     }
 
     .garden-item {
       position: absolute;
       font-size: clamp(1.8rem, 4vw, 3.4rem);
-      filter: drop-shadow(0 5px 6px rgba(140, 55, 112, 0.2));
-      animation: flowerDance 3s ease-in-out infinite;
+      animation: flowerDance 4s ease-in-out infinite;
     }
 
     .garden-item:nth-child(1) { left: 1.5%; bottom: 2%; }
@@ -211,7 +195,7 @@
       background-size: 200% 200%;
       box-shadow: 0 14px 30px rgba(209, 92, 159, 0.16), inset 0 0 24px rgba(255, 255, 255, 0.8);
       text-align: center;
-      animation: candySky 7s ease infinite, heroFloat 4s ease-in-out infinite;
+      background-position: 50% 50%;
     }
 
     .hero::before {
@@ -286,12 +270,12 @@
       border: 2px solid rgba(255, 255, 255, 0.95);
       border-radius: 24px;
       background: var(--surface);
-      box-shadow: var(--shadow), 0 0 0 5px rgba(245, 179, 214, 0.35), 0 0 38px rgba(202, 120, 255, 0.22);
-      animation: shellGlow 3.5s ease-in-out infinite alternate, rainbowBorder 12s linear infinite;
+      box-shadow: var(--shadow), 0 0 0 4px rgba(245, 179, 214, 0.3);
       scrollbar-color: #b9ccda transparent;
       scrollbar-width: thin;
       overscroll-behavior-inline: contain;
       -webkit-overflow-scrolling: touch;
+      contain: layout paint;
     }
 
     table {
@@ -387,16 +371,6 @@
       font-size: 1.4rem;
       line-height: 1;
       filter: drop-shadow(0 3px 3px rgba(114, 59, 101, 0.16));
-      animation: iconBounce 2.8s ease-in-out infinite;
-    }
-
-    tbody tr:nth-child(even) .subject-icon {
-      animation-delay: -1.2s;
-    }
-
-    @keyframes iconBounce {
-      0%, 100% { transform: translateY(0) rotate(-2deg); }
-      50% { transform: translateY(-4px) rotate(3deg); }
     }
 
     .subject-name {
@@ -430,27 +404,6 @@
       to { background-position: 220% center; }
     }
 
-    @keyframes shellGlow {
-      from { box-shadow: var(--shadow), 0 0 0 3px rgba(245, 179, 214, 0.28), 0 0 24px rgba(255, 105, 180, 0.14); }
-      to { box-shadow: var(--shadow), 0 0 0 4px rgba(190, 145, 255, 0.36), 0 0 44px rgba(170, 105, 255, 0.25); }
-    }
-
-    @keyframes popMagic {
-      0% { opacity: 1; transform: translate(-50%, -50%) scale(0.3) rotate(0deg); }
-      100% { opacity: 0; transform: translate(calc(-50% + var(--x)), calc(-50% + var(--y))) scale(1.4) rotate(var(--r)); }
-    }
-
-    .magic-pop {
-      position: fixed;
-      left: var(--left);
-      top: var(--top);
-      z-index: 50;
-      pointer-events: none;
-      font-size: var(--pop-size);
-      filter: drop-shadow(0 0 6px #fff);
-      animation: popMagic 750ms ease-out forwards;
-    }
-
     .s-toan { background: var(--toan-bg); color: var(--toan-fg); }
     .s-tviet { background: var(--tviet-bg); color: var(--tviet-fg); }
     .s-tanh { background: var(--tanh-bg); color: var(--tanh-fg); }
@@ -468,7 +421,6 @@
       padding: 7px;
       background: linear-gradient(90deg, #fff7b8, #ffe6f4, #e9ddff, #fff7b8);
       background-size: 200% auto;
-      animation: shimmerText 5s linear infinite;
       color: #9a6500;
       font-size: 0.78rem;
       font-weight: 800;
@@ -553,6 +505,15 @@
 
       .schedule-shell {
         border-radius: 18px;
+        box-shadow: 0 10px 24px rgba(32, 87, 129, 0.1), 0 0 0 3px rgba(245, 179, 214, 0.24);
+      }
+
+      .garden-item {
+        display: none;
+      }
+
+      .magic-layer {
+        opacity: 0.48;
       }
 
       table {
@@ -682,15 +643,19 @@
         ];
         const fragment = document.createDocumentFragment();
 
+        const compact = window.matchMedia('(max-width: 680px)').matches;
+
         particles.forEach((group, groupIndex) => {
-          const count = groupIndex === 0 ? 42 : groupIndex === 1 ? 24 : 12;
+          const desktopCounts = [18, 8, 4];
+          const mobileCounts = [9, 4, 2];
+          const count = (compact ? mobileCounts : desktopCounts)[groupIndex];
           for (let i = 0; i < count; i++) {
             const particle = document.createElement('span');
             particle.className = `magic-star ${group.className}`;
             particle.textContent = group.symbols[i % group.symbols.length];
             particle.style.setProperty('--left', `${(i * 47 + groupIndex * 13) % 101}%`);
-            particle.style.setProperty('--size', `${groupIndex === 0 ? 10 + (i % 5) * 3 : 16 + (i % 4) * 4}px`);
-            particle.style.setProperty('--duration', `${groupIndex === 0 ? 8 + (i % 7) : 11 + (i % 8)}s`);
+            particle.style.setProperty('--size', `${groupIndex === 0 ? 8 + (i % 4) * 2 : 13 + (i % 3) * 3}px`);
+            particle.style.setProperty('--duration', `${groupIndex === 0 ? 12 + (i % 7) : 16 + (i % 8)}s`);
             particle.style.setProperty('--delay', `${-(i * 1.7 + groupIndex * 2)}s`);
             particle.style.setProperty('--drift', `${(i % 2 ? 1 : -1) * (20 + (i % 5) * 6)}vw`);
             particle.style.setProperty('--sway', `${(i % 2 ? -1 : 1) * (12 + (i % 4) * 7)}vw`);
@@ -730,29 +695,6 @@
         });
       }
 
-      if (!reducedMotion) {
-        document.querySelector('tbody').addEventListener('click', event => {
-          const cell = event.target.closest('td[data-day]');
-          if (!cell) return;
-
-          const symbols = ['✨', '💖', '⭐', '🌸', '💫'];
-          const fragment = document.createDocumentFragment();
-          for (let i = 0; i < 10; i++) {
-            const particle = document.createElement('span');
-            particle.className = 'magic-pop';
-            particle.textContent = symbols[i % symbols.length];
-            particle.style.setProperty('--left', `${event.clientX}px`);
-            particle.style.setProperty('--top', `${event.clientY}px`);
-            particle.style.setProperty('--x', `${Math.cos(i * 0.628) * (45 + i * 3)}px`);
-            particle.style.setProperty('--y', `${Math.sin(i * 0.628) * (45 + i * 3)}px`);
-            particle.style.setProperty('--r', `${i * 72}deg`);
-            particle.style.setProperty('--pop-size', `${13 + (i % 3) * 4}px`);
-            particle.addEventListener('animationend', () => particle.remove(), { once: true });
-            fragment.append(particle);
-          }
-          document.body.append(fragment);
-        });
-      }
     })();
   </script>
 </body>
