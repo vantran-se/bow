@@ -46,7 +46,13 @@
       margin: 0;
       padding: clamp(16px, 3vw, 36px);
       color: var(--ink);
-      background: linear-gradient(145deg, #eaf7ff 0%, #f8fbff 48%, #fff4f8 100%);
+      background-color: #fff5fb;
+      background-image:
+        radial-gradient(circle at 12% 14%, rgba(255, 255, 255, 0.95) 0 3px, transparent 4px),
+        radial-gradient(circle at 88% 22%, rgba(255, 210, 236, 0.75) 0 4px, transparent 5px),
+        radial-gradient(circle at 72% 86%, rgba(210, 226, 255, 0.8) 0 3px, transparent 4px),
+        linear-gradient(145deg, #edf8ff 0%, #fff8fd 48%, #ffeef7 100%);
+      background-size: 150px 150px, 190px 190px, 170px 170px, auto;
       font-family: ui-rounded, "SF Pro Rounded", "Segoe UI", system-ui, -apple-system, sans-serif;
       -webkit-font-smoothing: antialiased;
     }
@@ -66,10 +72,18 @@
       text-align: center;
     }
 
+    .hero::before {
+      content: "✦  ♡  ✧";
+      color: #ef77ad;
+      font-size: 1.1rem;
+      letter-spacing: 0.35em;
+    }
+
     h1 {
       margin: 0 0 6px;
-      color: #e83e78;
+      color: #db3475;
       font-size: clamp(1.55rem, 3vw, 2.4rem);
+      text-shadow: 0 2px 0 #fff, 0 6px 16px rgba(219, 52, 117, 0.16);
       line-height: 1.15;
       letter-spacing: -0.035em;
     }
@@ -92,7 +106,8 @@
       padding: 8px 13px;
       border: 1px solid #f1dce5;
       border-radius: 999px;
-      background: #fff;
+      background: linear-gradient(135deg, #fff 0%, #fff1f8 100%);
+      box-shadow: 0 5px 14px rgba(214, 81, 139, 0.1);
       color: #a21f52;
       font-size: 0.9rem;
       font-weight: 750;
@@ -106,10 +121,10 @@
 
     .schedule-shell {
       overflow-x: auto;
-      border: 1px solid rgba(219, 232, 242, 0.9);
+      border: 2px solid rgba(255, 255, 255, 0.95);
       border-radius: 24px;
       background: var(--surface);
-      box-shadow: var(--shadow);
+      box-shadow: var(--shadow), 0 0 0 3px rgba(245, 179, 214, 0.2);
       scrollbar-color: #b9ccda transparent;
       scrollbar-width: thin;
       overscroll-behavior-inline: contain;
@@ -216,8 +231,20 @@
     }
 
     .star {
+      display: inline-block;
       color: #e59b00;
       font-size: 0.78rem;
+      filter: drop-shadow(0 0 3px rgba(255, 195, 45, 0.65));
+      animation: sparkle 1.8s ease-in-out infinite alternate;
+    }
+
+    .star:nth-of-type(even) {
+      animation-delay: 0.6s;
+    }
+
+    @keyframes sparkle {
+      from { opacity: 0.6; transform: scale(0.88) rotate(-8deg); }
+      to { opacity: 1; transform: scale(1.18) rotate(8deg); }
     }
 
     .s-toan { background: var(--toan-bg); color: var(--toan-fg); }
@@ -259,6 +286,27 @@
       color: #6d4b00;
       font-size: 0.62rem;
       font-weight: 850;
+    }
+
+    .sparkles {
+      display: flex;
+      justify-content: center;
+      gap: clamp(18px, 5vw, 54px);
+      margin: 12px 0 0;
+      color: #d94f8b;
+      font-size: 1.05rem;
+      letter-spacing: 0.12em;
+      user-select: none;
+    }
+
+    .sparkles span:nth-child(2) {
+      color: #9a67c7;
+      animation-delay: 0.5s;
+    }
+
+    .sparkles span:nth-child(3) {
+      color: #e6a21a;
+      animation-delay: 1s;
     }
 
     .note {
@@ -396,6 +444,7 @@
       </table>
     </div>
 
+    <div class="sparkles" aria-hidden="true"><span class="star">✦</span><span class="star">♡ ✧ ♡</span><span class="star">✦</span></div>
     <p class="note"><span class="star">★</span> Môn học với giáo viên chuyên trách</p>
   </main>
 
