@@ -126,7 +126,9 @@
 
     .garden-item {
       position: absolute;
-      font-size: clamp(1.8rem, 4vw, 3.4rem);
+      width: clamp(46px, 6vw, 76px);
+      height: clamp(46px, 6vw, 76px);
+      object-fit: contain;
       animation: flowerDance 4s ease-in-out infinite;
     }
 
@@ -192,6 +194,9 @@
     }
 
     .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
       padding: 8px 13px;
       border: 1px solid #f1dce5;
       border-radius: 999px;
@@ -208,11 +213,29 @@
       color: #176491;
     }
 
+    .pill .icon {
+      width: 30px;
+      height: 30px;
+      object-fit: contain;
+    }
+
     .princess {
-      font-size: clamp(2.3rem, 6vw, 4.5rem);
-      line-height: 1;
-      filter: drop-shadow(0 7px 8px rgba(179, 68, 139, 0.22));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
       animation: princessWave 2.8s ease-in-out infinite;
+    }
+
+    .princess img:first-child {
+      width: clamp(58px, 9vw, 88px);
+      height: clamp(58px, 9vw, 88px);
+    }
+
+    .princess img:last-child {
+      width: clamp(38px, 6vw, 58px);
+      height: clamp(38px, 6vw, 58px);
+      transform: rotate(10deg);
     }
 
     @keyframes princessWave {
@@ -277,10 +300,20 @@
     .col-t6 { background: linear-gradient(145deg, #bd7de4, #8154c6); }
     .col-t7 { background: linear-gradient(145deg, #ff70be, #d83e87); }
 
+    .icon {
+      display: inline-block;
+      width: 1.45em;
+      height: 1.45em;
+      object-fit: contain;
+      vertical-align: -0.35em;
+    }
+
     .day-icon {
       display: block;
-      margin-bottom: 4px;
-      font-size: 1.25rem;
+      width: 30px;
+      height: 30px;
+      margin: 0 auto 3px;
+      object-fit: contain;
     }
 
     .week-date {
@@ -322,9 +355,10 @@
 
     .subject-icon {
       display: block;
-      margin-bottom: 5px;
-      font-size: 1.4rem;
-      line-height: 1;
+      width: 34px;
+      height: 34px;
+      margin: 0 auto 4px;
+      object-fit: contain;
       filter: drop-shadow(0 3px 3px rgba(114, 59, 101, 0.16));
     }
 
@@ -494,23 +528,23 @@
 <body>
   <canvas class="magic-layer" aria-hidden="true"></canvas>
   <div class="garden" aria-hidden="true">
-    <span class="garden-item">🌷🌼</span>
-    <span class="garden-item">🌸🌺</span>
-    <span class="garden-item">🌻</span>
-    <span class="garden-item">🦋</span>
-    <span class="garden-item">🦋</span>
-    <span class="garden-item">🌹</span>
+    <img class="garden-item" src="assets/icons/cherry-blossom.png" alt="">
+    <img class="garden-item" src="assets/icons/blossom.png" alt="">
+    <img class="garden-item" src="assets/icons/cherry-blossom.png" alt="">
+    <img class="garden-item" src="assets/icons/butterfly.png" alt="">
+    <img class="garden-item" src="assets/icons/butterfly.png" alt="">
+    <img class="garden-item" src="assets/icons/sparkling-heart.png" alt="">
   </div>
   <main>
     <header class="hero">
-      <div class="princess" aria-hidden="true">👸🏻🪄</div>
+      <div class="princess" aria-hidden="true"><img src="assets/icons/princess.png" alt=""><img src="assets/icons/magic-wand.png" alt=""></div>
       <div>
         <h1>Thời khóa biểu của con</h1>
         <p class="subtitle">Mỗi ngày đến trường là một ngày vui</p>
       </div>
       <div class="profile" aria-label="Thông tin học sinh">
-        <span class="pill">👧 Thảo Uyên</span>
-        <span class="pill">🏫 Lớp 2/4</span>
+        <span class="pill"><img class="icon" src="assets/icons/girl.png" alt=""> Thảo Uyên</span>
+        <span class="pill"><img class="icon" src="assets/icons/school.png" alt=""> Lớp 2/4</span>
       </div>
     </header>
 
@@ -518,33 +552,33 @@
       <table>
         <thead>
           <tr>
-            <th class="col-time" scope="col"><span class="day-icon">⏰</span>Thời gian</th>
-            <th class="col-t2" scope="col" data-day="1"><span class="day-icon">🍓</span>Thứ 2<span class="week-date"></span></th>
-            <th class="col-t3" scope="col" data-day="2"><span class="day-icon">🍊</span>Thứ 3<span class="week-date"></span></th>
-            <th class="col-t4" scope="col" data-day="3"><span class="day-icon">🍋</span>Thứ 4<span class="week-date"></span></th>
-            <th class="col-t5" scope="col" data-day="4"><span class="day-icon">🍏</span>Thứ 5<span class="week-date"></span></th>
-            <th class="col-t6" scope="col" data-day="5"><span class="day-icon">🍇</span>Thứ 6<span class="week-date"></span></th>
-            <th class="col-t7" scope="col" data-day="6"><span class="day-icon">🍉</span>Thứ 7<span class="week-date"></span></th>
+            <th class="col-time" scope="col"><img class="day-icon" src="assets/icons/time.png" alt="">Thời gian</th>
+            <th class="col-t2" scope="col" data-day="1"><img class="day-icon" src="assets/icons/monday.png" alt="">Thứ 2<span class="week-date"></span></th>
+            <th class="col-t3" scope="col" data-day="2"><img class="day-icon" src="assets/icons/tuesday.png" alt="">Thứ 3<span class="week-date"></span></th>
+            <th class="col-t4" scope="col" data-day="3"><img class="day-icon" src="assets/icons/wednesday.png" alt="">Thứ 4<span class="week-date"></span></th>
+            <th class="col-t5" scope="col" data-day="4"><img class="day-icon" src="assets/icons/thursday.png" alt="">Thứ 5<span class="week-date"></span></th>
+            <th class="col-t6" scope="col" data-day="5"><img class="day-icon" src="assets/icons/friday.png" alt="">Thứ 6<span class="week-date"></span></th>
+            <th class="col-t7" scope="col" data-day="6"><img class="day-icon" src="assets/icons/saturday.png" alt="">Thứ 7<span class="week-date"></span></th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <th class="time-col" scope="row"><span class="period-num">Tiết 1</span><span class="period-time">7:30 – 8:10</span></th>
-            <td class="s-tr" data-day="1"><span class="subject-icon">🌱</span><span class="subject-name">Hoạt động trải nghiệm (SHDC)</span></td>
-            <td class="s-tviet" data-day="2"><span class="subject-icon">📚</span><span class="subject-name">Tiếng Việt</span></td>
-            <td class="s-tviet" data-day="3"><span class="subject-icon">📚</span><span class="subject-name">Tiếng Việt</span></td>
-            <td class="s-tanh" data-day="4"><span class="subject-icon">🦊</span><span class="subject-name">Tiếng Anh (Toán &amp; Khoa học) <span class="star">★</span></span></td>
-            <td class="s-toan" data-day="5"><span class="subject-icon">🔢</span><span class="subject-name">Toán</span></td>
-            <td class="s-tr" data-day="6"><span class="subject-icon">🌱</span><span class="subject-name">Hoạt động trải nghiệm (SHCĐ) <span class="star">★</span></span></td>
+            <td class="s-tr" data-day="1"><img class="subject-icon" src="assets/icons/experience.png" alt="" loading="lazy" decoding="async"><span class="subject-name">Hoạt động trải nghiệm (SHDC)</span></td>
+            <td class="s-tviet" data-day="2"><img class="subject-icon" src="assets/icons/vietnamese.png" alt="" loading="lazy" decoding="async"><span class="subject-name">Tiếng Việt</span></td>
+            <td class="s-tviet" data-day="3"><img class="subject-icon" src="assets/icons/vietnamese.png" alt="" loading="lazy" decoding="async"><span class="subject-name">Tiếng Việt</span></td>
+            <td class="s-tanh" data-day="4"><img class="subject-icon" src="assets/icons/english.png" alt="" loading="lazy" decoding="async"><span class="subject-name">Tiếng Anh (Toán &amp; Khoa học) <span class="star">★</span></span></td>
+            <td class="s-toan" data-day="5"><img class="subject-icon" src="assets/icons/math.png" alt="" loading="lazy" decoding="async"><span class="subject-name">Toán</span></td>
+            <td class="s-tr" data-day="6"><img class="subject-icon" src="assets/icons/experience.png" alt="" loading="lazy" decoding="async"><span class="subject-name">Hoạt động trải nghiệm (SHCĐ) <span class="star">★</span></span></td>
           </tr>
           <tr>
             <th class="time-col" scope="row"><span class="period-num">Tiết 2</span><span class="period-time">8:10 – 8:50</span></th>
-            <td class="s-tviet" data-day="1"><span class="subject-icon">📚</span><span class="subject-name">Tiếng Việt</span></td>
-            <td class="s-toan" data-day="2"><span class="subject-icon">🔢</span><span class="subject-name">Toán</span></td>
-            <td class="s-tviet" data-day="3"><span class="subject-icon">📚</span><span class="subject-name">Tiếng Việt</span></td>
-            <td class="s-tanh" data-day="4"><span class="subject-icon">🦊</span><span class="subject-name">Tiếng Anh (Toán &amp; Khoa học) <span class="star">★</span></span></td>
-            <td class="s-tviet" data-day="5"><span class="subject-icon">📚</span><span class="subject-name">Tiếng Việt</span></td>
-            <td class="s-tanh" data-day="6"><span class="subject-icon">🦊</span><span class="subject-name">Tiếng Anh <span class="star">★</span></span></td>
+            <td class="s-tviet" data-day="1"><img class="subject-icon" src="assets/icons/vietnamese.png" alt="" loading="lazy" decoding="async"><span class="subject-name">Tiếng Việt</span></td>
+            <td class="s-toan" data-day="2"><img class="subject-icon" src="assets/icons/math.png" alt="" loading="lazy" decoding="async"><span class="subject-name">Toán</span></td>
+            <td class="s-tviet" data-day="3"><img class="subject-icon" src="assets/icons/vietnamese.png" alt="" loading="lazy" decoding="async"><span class="subject-name">Tiếng Việt</span></td>
+            <td class="s-tanh" data-day="4"><img class="subject-icon" src="assets/icons/english.png" alt="" loading="lazy" decoding="async"><span class="subject-name">Tiếng Anh (Toán &amp; Khoa học) <span class="star">★</span></span></td>
+            <td class="s-tviet" data-day="5"><img class="subject-icon" src="assets/icons/vietnamese.png" alt="" loading="lazy" decoding="async"><span class="subject-name">Tiếng Việt</span></td>
+            <td class="s-tanh" data-day="6"><img class="subject-icon" src="assets/icons/english.png" alt="" loading="lazy" decoding="async"><span class="subject-name">Tiếng Anh <span class="star">★</span></span></td>
           </tr>
           <tr class="break-row">
             <th class="time-col" scope="row">8:50 – 9:20</th>
@@ -552,30 +586,30 @@
           </tr>
           <tr>
             <th class="time-col" scope="row"><span class="period-num">Tiết 3</span><span class="period-time">9:20 – 10:00</span></th>
-            <td class="s-tviet" data-day="1"><span class="subject-icon">📚</span><span class="subject-name">Tiếng Việt</span></td>
-            <td class="s-tviet" data-day="2"><span class="subject-icon">📚</span><span class="subject-name">Tiếng Việt</span></td>
-            <td class="s-toan" data-day="3"><span class="subject-icon">🔢</span><span class="subject-name">Toán</span></td>
-            <td class="s-mt" data-day="4"><span class="subject-icon">🎨</span><span class="subject-name">Nghệ thuật (Mĩ thuật) <span class="star">★</span></span></td>
-            <td class="s-td" data-day="5"><span class="subject-icon">🏃♀️</span><span class="subject-name">Giáo dục thể chất <span class="star">★</span></span></td>
-            <td class="s-an" data-day="6"><span class="subject-icon">🎵</span><span class="subject-name">Nghệ thuật (Âm nhạc) <span class="star">★</span></span></td>
+            <td class="s-tviet" data-day="1"><img class="subject-icon" src="assets/icons/vietnamese.png" alt="" loading="lazy" decoding="async"><span class="subject-name">Tiếng Việt</span></td>
+            <td class="s-tviet" data-day="2"><img class="subject-icon" src="assets/icons/vietnamese.png" alt="" loading="lazy" decoding="async"><span class="subject-name">Tiếng Việt</span></td>
+            <td class="s-toan" data-day="3"><img class="subject-icon" src="assets/icons/math.png" alt="" loading="lazy" decoding="async"><span class="subject-name">Toán</span></td>
+            <td class="s-mt" data-day="4"><img class="subject-icon" src="assets/icons/art.png" alt="" loading="lazy" decoding="async"><span class="subject-name">Nghệ thuật (Mĩ thuật) <span class="star">★</span></span></td>
+            <td class="s-td" data-day="5"><img class="subject-icon" src="assets/icons/physical.png" alt="" loading="lazy" decoding="async"><span class="subject-name">Giáo dục thể chất <span class="star">★</span></span></td>
+            <td class="s-an" data-day="6"><img class="subject-icon" src="assets/icons/music.png" alt="" loading="lazy" decoding="async"><span class="subject-name">Nghệ thuật (Âm nhạc) <span class="star">★</span></span></td>
           </tr>
           <tr>
             <th class="time-col" scope="row"><span class="period-num">Tiết 4</span><span class="period-time">10:00 – 10:40</span></th>
-            <td class="s-toan" data-day="1"><span class="subject-icon">🔢</span><span class="subject-name">Toán</span></td>
-            <td class="s-td" data-day="2"><span class="subject-icon">🏃♀️</span><span class="subject-name">Giáo dục thể chất <span class="star">★</span></span></td>
-            <td class="s-tviet" data-day="3"><span class="subject-icon">📚</span><span class="subject-name">Tiếng Việt</span></td>
-            <td class="s-tviet" data-day="4"><span class="subject-icon">📚</span><span class="subject-name">Tiếng Việt</span></td>
-            <td class="s-tviet" data-day="5"><span class="subject-icon">📚</span><span class="subject-name">Tiếng Việt</span></td>
-            <td class="s-kn" data-day="6"><span class="subject-icon">🧩</span><span class="subject-name">Kĩ năng sống <span class="star">★</span></span></td>
+            <td class="s-toan" data-day="1"><img class="subject-icon" src="assets/icons/math.png" alt="" loading="lazy" decoding="async"><span class="subject-name">Toán</span></td>
+            <td class="s-td" data-day="2"><img class="subject-icon" src="assets/icons/physical.png" alt="" loading="lazy" decoding="async"><span class="subject-name">Giáo dục thể chất <span class="star">★</span></span></td>
+            <td class="s-tviet" data-day="3"><img class="subject-icon" src="assets/icons/vietnamese.png" alt="" loading="lazy" decoding="async"><span class="subject-name">Tiếng Việt</span></td>
+            <td class="s-tviet" data-day="4"><img class="subject-icon" src="assets/icons/vietnamese.png" alt="" loading="lazy" decoding="async"><span class="subject-name">Tiếng Việt</span></td>
+            <td class="s-tviet" data-day="5"><img class="subject-icon" src="assets/icons/vietnamese.png" alt="" loading="lazy" decoding="async"><span class="subject-name">Tiếng Việt</span></td>
+            <td class="s-kn" data-day="6"><img class="subject-icon" src="assets/icons/skills.png" alt="" loading="lazy" decoding="async"><span class="subject-name">Kĩ năng sống <span class="star">★</span></span></td>
           </tr>
           <tr>
             <th class="time-col" scope="row"><span class="period-num">Tiết 5</span><span class="period-time">10:40 – 11:20</span></th>
-            <td class="s-dd" data-day="1"><span class="subject-icon">💖</span><span class="subject-name">Đạo đức</span></td>
-            <td class="s-tnxh" data-day="2"><span class="subject-icon">🌍</span><span class="subject-name">Tự nhiên và Xã hội</span></td>
-            <td class="s-tnxh" data-day="3"><span class="subject-icon">🌍</span><span class="subject-name">Tự nhiên và Xã hội</span></td>
-            <td class="s-toan" data-day="4"><span class="subject-icon">🔢</span><span class="subject-name">Toán</span></td>
-            <td class="s-sh" data-day="5"><span class="subject-icon">🤝</span><span class="subject-name">Hoạt động trải nghiệm (SHL)</span></td>
-            <td class="s-tanh" data-day="6"><span class="subject-icon">🦊</span><span class="subject-name">Tiếng Anh <span class="star">★</span></span></td>
+            <td class="s-dd" data-day="1"><img class="subject-icon" src="assets/icons/ethics.png" alt="" loading="lazy" decoding="async"><span class="subject-name">Đạo đức</span></td>
+            <td class="s-tnxh" data-day="2"><img class="subject-icon" src="assets/icons/nature.png" alt="" loading="lazy" decoding="async"><span class="subject-name">Tự nhiên và Xã hội</span></td>
+            <td class="s-tnxh" data-day="3"><img class="subject-icon" src="assets/icons/nature.png" alt="" loading="lazy" decoding="async"><span class="subject-name">Tự nhiên và Xã hội</span></td>
+            <td class="s-toan" data-day="4"><img class="subject-icon" src="assets/icons/math.png" alt="" loading="lazy" decoding="async"><span class="subject-name">Toán</span></td>
+            <td class="s-sh" data-day="5"><img class="subject-icon" src="assets/icons/activity.png" alt="" loading="lazy" decoding="async"><span class="subject-name">Hoạt động trải nghiệm (SHL)</span></td>
+            <td class="s-tanh" data-day="6"><img class="subject-icon" src="assets/icons/english.png" alt="" loading="lazy" decoding="async"><span class="subject-name">Tiếng Anh <span class="star">★</span></span></td>
           </tr>
         </tbody>
       </table>
@@ -593,8 +627,19 @@
       if (!reducedMotion) {
         const context = magicLayer.getContext('2d', { alpha: true });
         const compact = window.matchMedia('(max-width: 680px)').matches;
-        const symbols = ['✦', '✧', '⋆', '♡', '🌸', '🌷', '🌼', '🦋', '💖'];
-        const colors = ['#ffffff', '#ffe06b', '#ff7fba', '#b38cff', '#78cfff'];
+        const iconSources = [
+          'assets/icons/cherry-blossom.png',
+          'assets/icons/blossom.png',
+          'assets/icons/butterfly.png',
+          'assets/icons/sparkling-heart.png',
+          'assets/icons/sparkles.png',
+          'assets/icons/hearts.png'
+        ];
+        const icons = iconSources.map(source => {
+          const image = new Image();
+          image.src = source;
+          return image;
+        });
         const particleCount = compact ? 26 : 48;
         const particles = [];
         let width = 0;
@@ -609,8 +654,7 @@
           particle.speed = 14 + Math.random() * 24;
           particle.sway = 12 + Math.random() * 26;
           particle.phase = Math.random() * Math.PI * 2;
-          particle.symbol = symbols[Math.floor(Math.random() * symbols.length)];
-          particle.color = colors[Math.floor(Math.random() * colors.length)];
+          particle.icon = icons[Math.floor(Math.random() * icons.length)];
           particle.alpha = 0.38 + Math.random() * 0.44;
         };
 
@@ -636,18 +680,17 @@
           const delta = Math.min((timestamp - lastFrame) / 1000, 0.05);
           lastFrame = timestamp;
           context.clearRect(0, 0, width, height);
-          context.textAlign = 'center';
-          context.textBaseline = 'middle';
 
           for (const particle of particles) {
             particle.y -= particle.speed * delta;
             particle.phase += delta * 0.9;
             if (particle.y < -40) resetParticle(particle);
 
-            context.globalAlpha = particle.alpha;
-            context.fillStyle = particle.color;
-            context.font = `${particle.size}px system-ui, sans-serif`;
-            context.fillText(particle.symbol, particle.x + Math.sin(particle.phase) * particle.sway, particle.y);
+            if (particle.icon.complete) {
+              context.globalAlpha = particle.alpha;
+              const x = particle.x + Math.sin(particle.phase) * particle.sway;
+              context.drawImage(particle.icon, x - particle.size / 2, particle.y - particle.size / 2, particle.size, particle.size);
+            }
           }
           context.globalAlpha = 1;
         };
