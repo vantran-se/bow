@@ -101,18 +101,50 @@
 
     .magic-star {
       position: absolute;
-      color: #fff;
+      left: var(--left);
+      bottom: -12vh;
+      color: var(--color);
       font-size: var(--size);
-      text-shadow: 0 0 6px #fff, 0 0 14px #ff8fd0, 0 0 24px #9e7cff;
+      line-height: 1;
+      text-shadow: 0 0 7px #fff, 0 0 16px currentColor, 0 0 28px currentColor;
+      filter: drop-shadow(0 4px 5px rgba(122, 57, 121, 0.18));
       opacity: 0;
+      will-change: transform, opacity;
       animation: drift var(--duration) linear infinite;
       animation-delay: var(--delay);
     }
 
+    .magic-star.flower {
+      text-shadow: 0 0 8px #fff;
+      filter: drop-shadow(0 5px 5px rgba(176, 62, 123, 0.2));
+      animation-name: flowerRise;
+    }
+
+    .magic-star.butterfly {
+      animation-name: butterflyRise;
+    }
+
     @keyframes drift {
-      0% { opacity: 0; transform: translate3d(0, 12vh, 0) rotate(0deg) scale(0.6); }
-      15%, 75% { opacity: 0.92; }
-      100% { opacity: 0; transform: translate3d(var(--drift), -115vh, 0) rotate(240deg) scale(1.25); }
+      0% { opacity: 0; transform: translate3d(0, 0, 0) rotate(0deg) scale(0.55); }
+      10%, 88% { opacity: 0.95; }
+      50% { transform: translate3d(var(--sway), -58vh, 0) rotate(150deg) scale(1); }
+      100% { opacity: 0; transform: translate3d(var(--drift), -120vh, 0) rotate(320deg) scale(1.2); }
+    }
+
+    @keyframes flowerRise {
+      0% { opacity: 0; transform: translate3d(0, 0, 0) rotate(-15deg) scale(0.65); }
+      12%, 86% { opacity: 0.88; }
+      45% { transform: translate3d(var(--sway), -50vh, 0) rotate(18deg) scale(1.08); }
+      100% { opacity: 0; transform: translate3d(var(--drift), -118vh, 0) rotate(-25deg) scale(0.85); }
+    }
+
+    @keyframes butterflyRise {
+      0% { opacity: 0; transform: translate3d(0, 0, 0) rotate(-12deg) scale(0.7); }
+      10%, 90% { opacity: 1; }
+      25% { transform: translate3d(35px, -28vh, 0) rotate(12deg) scale(1); }
+      50% { transform: translate3d(-28px, -58vh, 0) rotate(-10deg) scale(0.9); }
+      75% { transform: translate3d(40px, -88vh, 0) rotate(14deg) scale(1.1); }
+      100% { opacity: 0; transform: translate3d(var(--drift), -120vh, 0) rotate(-8deg) scale(0.8); }
     }
 
     @keyframes floatGlow {
@@ -235,6 +267,18 @@
     .pill:last-child {
       border-color: #d8e9f5;
       color: #176491;
+    }
+
+    .princess {
+      font-size: clamp(2.3rem, 6vw, 4.5rem);
+      line-height: 1;
+      filter: drop-shadow(0 7px 8px rgba(179, 68, 139, 0.22));
+      animation: princessWave 2.8s ease-in-out infinite;
+    }
+
+    @keyframes princessWave {
+      0%, 100% { transform: translateY(0) rotate(-3deg); }
+      50% { transform: translateY(-8px) rotate(4deg) scale(1.05); }
     }
 
     .schedule-shell {
@@ -543,6 +587,7 @@
   </div>
   <main>
     <header class="hero">
+      <div class="princess" aria-hidden="true">👸🏻🪄</div>
       <div>
         <h1>Thời khóa biểu của con</h1>
         <p class="subtitle">Mỗi ngày đến trường là một ngày vui</p>
@@ -630,19 +675,30 @@
       const magicLayer = document.querySelector('.magic-layer');
 
       if (!reducedMotion) {
-        const symbols = ['✦', '✧', '♡', '⋆', '❀', '✿', '❋'];
+        const particles = [
+          { symbols: ['✦', '✧', '⋆', '✵', '❋'], className: '', colors: ['#ffffff', '#ffe06b', '#ff91ce', '#c9a7ff'] },
+          { symbols: ['🌸', '🌷', '🌼', '🌺', '🌹'], className: 'flower', colors: ['#ff81ba', '#ff9dc9', '#ffc857'] },
+          { symbols: ['🦋', '💖', '💗'], className: 'butterfly', colors: ['#b793ff', '#ff72b6'] }
+        ];
         const fragment = document.createDocumentFragment();
-        for (let i = 0; i < 42; i++) {
-          const sparkle = document.createElement('span');
-          sparkle.className = 'magic-star';
-          sparkle.textContent = symbols[i % symbols.length];
-          sparkle.style.setProperty('left', `${(i * 37) % 101}%`);
-          sparkle.style.setProperty('--size', `${10 + (i % 5) * 3}px`);
-          sparkle.style.setProperty('--duration', `${8 + (i % 7)}s`);
-          sparkle.style.setProperty('--delay', `${-(i % 12)}s`);
-          sparkle.style.setProperty('--drift', `${(i % 2 ? 1 : -1) * (12 + (i % 4) * 5)}vw`);
-          fragment.append(sparkle);
-        }
+
+        particles.forEach((group, groupIndex) => {
+          const count = groupIndex === 0 ? 42 : groupIndex === 1 ? 24 : 12;
+          for (let i = 0; i < count; i++) {
+            const particle = document.createElement('span');
+            particle.className = `magic-star ${group.className}`;
+            particle.textContent = group.symbols[i % group.symbols.length];
+            particle.style.setProperty('--left', `${(i * 47 + groupIndex * 13) % 101}%`);
+            particle.style.setProperty('--size', `${groupIndex === 0 ? 10 + (i % 5) * 3 : 16 + (i % 4) * 4}px`);
+            particle.style.setProperty('--duration', `${groupIndex === 0 ? 8 + (i % 7) : 11 + (i % 8)}s`);
+            particle.style.setProperty('--delay', `${-(i * 1.7 + groupIndex * 2)}s`);
+            particle.style.setProperty('--drift', `${(i % 2 ? 1 : -1) * (20 + (i % 5) * 6)}vw`);
+            particle.style.setProperty('--sway', `${(i % 2 ? -1 : 1) * (12 + (i % 4) * 7)}vw`);
+            particle.style.setProperty('--color', group.colors[i % group.colors.length]);
+            fragment.append(particle);
+          }
+        });
+
         magicLayer.append(fragment);
       }
 
@@ -675,21 +731,6 @@
       }
 
       if (!reducedMotion) {
-        window.addEventListener('pointermove', event => {
-          if (Math.random() > 0.12) return;
-          const trail = document.createElement('span');
-          trail.className = 'magic-pop';
-          trail.textContent = ['✨', '🌸', '💖'][Math.floor(Math.random() * 3)];
-          trail.style.setProperty('--left', `${event.clientX}px`);
-          trail.style.setProperty('--top', `${event.clientY}px`);
-          trail.style.setProperty('--x', `${Math.random() * 30 - 15}px`);
-          trail.style.setProperty('--y', `${-25 - Math.random() * 30}px`);
-          trail.style.setProperty('--r', `${Math.random() * 180}deg`);
-          trail.style.setProperty('--pop-size', `${10 + Math.random() * 7}px`);
-          trail.addEventListener('animationend', () => trail.remove(), { once: true });
-          document.body.append(trail);
-        }, { passive: true });
-
         document.querySelector('tbody').addEventListener('click', event => {
           const cell = event.target.closest('td[data-day]');
           if (!cell) return;
